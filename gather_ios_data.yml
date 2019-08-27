@@ -1,0 +1,18 @@
+---
+- name: gather facts for cisco
+  hosts: cisco
+  gather_facts: no
+  connection: network_cli
+
+  tasks:
+    - name: gather ios facts
+      ios_facts:
+
+    - name: display version
+      debug:
+         msg: "The IOS version is {{ ansible_net_version }}"
+
+    - name: disoplay serial number
+      debug:
+       msg: "Serial number is {{ ansible_net_serialnum }}"
+
