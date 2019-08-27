@@ -16,10 +16,20 @@
       debug:
        msg: "Serial number is {{ ansible_net_serialnum }}"
 
-    - name: run commands in cisco device
+    - name: run commands in cisco device and collect output
       ios_command:
        commands:
           - show run | i hostname
           - show ip interface brief
       tags: show
-~
+      register: show_output
+
+    - name: display out output of the colelcted data
+      debug:
+        var : show_output
+      tags: show
+
+    - name: display the host name
+      debug:
+        msg:  "The hostname is {{ show_output.stdout[0] }}"
+      tags: show
